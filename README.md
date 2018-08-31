@@ -1,1 +1,2 @@
-# AnimatedElementsTest
+# Animated Elements Test
+
