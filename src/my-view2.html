@@ -1,0 +1,107 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+
+
+<dom-module id="my-view2">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      li {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    </style>
+    <a href="{{goToPage}}" id="navigate"></a>
+    <div class="card">
+      <div class="circle">2</div>
+      <h1>View Two</h1>
+      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
+      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+      <li id="view1" on-click="_playExitAnimation">View1</li>
+      <li id="view2" on-click="_playExitAnimation">View2</li>
+      <li id="view3" on-click="_playExitAnimation">View3</li>
+    </div>
+  </template>
+
+  <script>
+    class MyView2 extends Polymer.Element {
+      static get is() { return 'my-view2'; }
+
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            notify: true,
+            observer: '_playEntryAnimation',
+          },
+          selectedPage: {
+            type: String,
+            value: 'view2'
+          },
+          goToPage: {
+            type: String,
+          },
+        };
+      }
+
+
+      _playEntryAnimation(page) {
+        if(this.page === this.selectedPage){
+          let locTrail = JSON.parse(localStorage.getItem('loc'));
+          locTrail ? _addPage(page, locTrail) : localStorage.setItem("loc", JSON.stringify([page]));
+          function _addPage() {
+            if(locTrail.length > 1){locTrail.shift()};
+            locTrail.push(page);
+            localStorage.setItem("loc", JSON.stringify(locTrail));
+          }
+          switch (JSON.parse(localStorage.getItem('loc'))[0]) {
+              case 'view1':
+                console.log('Playing view 2 entry animation when coming from view1')
+                break;
+              case 'view2':
+                console.log('Playing view 2 entry animation when coming from view2')
+                break;
+              case 'view3':
+                console.log('Playing view 2 entry animation when coming from view3')
+                break;
+          }
+        }
+      }
+
+      _playExitAnimation(e){
+        this.goToPage = e.path[0].attributes[0].nodeValue;
+        this.$.navigate.click();
+        switch (this.goToPage) {
+          case 'view1':
+            console.log('Playing view2 exit animation before going to view1')
+            this.$.navigate.click();
+            break;
+          case 'view2':
+            console.log('Playing view2 exit animation before going to view2')
+            this.$.navigate.click();
+            break;
+          case 'view3':
+            console.log('Playing view2 exit animation before going to view3')
+            this.$.navigate.click();
+            break;
+        }
+      }
+
+
+    } window.customElements.define(MyView2.is, MyView2);
+  </script>
+</dom-module>

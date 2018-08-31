@@ -1,74 +1,33 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.js",
+  "shell": "src/my-app.html",
+  "fragments": [
+    "src/my-view1.html",
+    "src/my-view2.html",
+    "src/my-view3.html",
+    "src/my-view404.html"
+  ],
   "sources": [
-    "images/**/*"
+    "images/**/*",
+    "src/**/*"
   ],
   "extraDependencies": [
-    "manifest.json",
-    "node_modules/@webcomponents/webcomponentsjs/*.js",
-    "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
-    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js"
+    "bower_components/webcomponentsjs/*.js",
+    "!bower_components/webcomponentsjs/gulpfile.js",
+    "manifest.json"
   ],
+  "lint": {
+    "rules": ["polymer-2"]
+  },
   "builds": [
     {
-      "name": "esm-bundled",
-      "browserCapabilities": [
-        "es2015",
-        "modules"
-      ],
-      "js": {
-        "minify": true
-      },
-      "css": {
-        "minify": true
-      },
-      "html": {
-        "minify": true
-      },
-      "bundle": true,
-      "addServiceWorker": true
+      "preset": "es5-bundled"
     },
     {
-      "name": "es6-bundled",
-      "browserCapabilities": [
-        "es2015"
-      ],
-      "js": {
-        "minify": true,
-        "transformModulesToAmd": true
-      },
-      "css": {
-        "minify": true
-      },
-      "html": {
-        "minify": true
-      },
-      "bundle": true,
-      "addServiceWorker": true
+      "preset": "es6-bundled"
     },
     {
-      "name": "es5-bundled",
-      "js": {
-        "minify": true,
-        "compile": true,
-        "transformModulesToAmd": true
-      },
-      "css": {
-        "minify": true
-      },
-      "html": {
-        "minify": true
-      },
-      "bundle": true,
-      "addServiceWorker": true
+      "preset": "es6-unbundled"
     }
-  ],
-  "moduleResolution": "node",
-  "npm": true,
-  "lint": {
-    "rules": [
-      "polymer-3"
-    ]
-  }
+  ]
 }
