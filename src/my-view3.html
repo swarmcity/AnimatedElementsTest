@@ -25,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <a href="{{goToPage}}" id="navigate"></a>
-    <div class="card">
+    <div class="card" id="card">
       <div class="circle">3</div>
       <h1>View Three</h1>
       <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
@@ -71,12 +71,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             switch (JSON.parse(localStorage.getItem('loc'))[0]) {
               case 'view1':
                 console.log('Playing view 3 entry animation when coming from view1')
+                // When the user arrives from view 1 do nothing 
                 break;
               case 'view2':
                 console.log('Playing view 3 entry animation when coming from view2')
+                // When the user arrives from view 1 do nothing 
                 break;
               case 'view3':
                 console.log('Page Refresh Set elements to final position')
+                // When the user arrives from view 1 do nothing 
                 break;
           }
         }
@@ -88,15 +91,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         switch (this.goToPage) {
           case 'view1':
             console.log('Playing view3 exit animation before going to view1')
-            this.$.navigate.click();
+            this.$.navigate.click(); // if the user clicks view1 just navigate to that page
             break;
           case 'view2':
             console.log('Playing view3 exit animation before going to view2')
-            this.$.navigate.click();
+            this.$.navigate.click(); // if the user clicks view2 just navigate to that page
             break;
           case 'view3':
             console.log('Playing view3 exit animation before going to view3')
-            this.$.navigate.click();
+            this.$.navigate.click(); // if the user clicks view3 just navigate to that page
             break;
         }
       }
