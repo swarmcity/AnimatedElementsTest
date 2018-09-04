@@ -25,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <a href="{{goToPage}}" id="navigate"></a>
-    <div class="card">
+    <div class="card" id="card">
       <div class="circle">1</div>
       <h1>View One</h1>
       <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
@@ -83,7 +83,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _playExitAnimation(e){
         this.goToPage = e.path[0].attributes[0].nodeValue;
-        this.$.navigate.click();
         switch (this.goToPage) {
           case 'view1':
             console.log('Page Refresh Set elements to final position')
@@ -91,7 +90,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case 'view2':
             console.log('Playing view1 exit animation before going to view2')
-            this.$.navigate.click();
+            this._leftToCenter()
             break;
           case 'view3':
             console.log('Playing view1 exit animation before going to view3')
@@ -100,6 +99,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
+      _leftToCenter(){
+        let animationPeriod = 1000;
+        let animation = this.$.card.animate([
+          { transform: 'rotate(0) translate3D(-50%, -50%, 0)', backgroundColor: 'red' },
+          { transform: 'rotate(360deg) translate3D(-50%, -50%, 0)', backgroundColor: 'blue' }
+          ], { duration: animationPeriod, easing: 'ease-out', direction: 'alternate'});
+        animation.play();
+        window.setTimeout(() => this.$.navigate.click(), animationPeriod);
+      }
 
     } window.customElements.define(MyView1.is, MyView1);
   </script>
